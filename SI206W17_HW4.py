@@ -5,7 +5,8 @@ from bs4 import BeautifulSoup
 
 ## SI 206 - W17 - HW4
 ## COMMENT WITH:
-## Your section day/time:
+## Name: Amelia Cacchione
+## Your section day/time: Friday 1-2pm
 ## Any names of people you worked with on this assignment:
 
 #####################
@@ -14,6 +15,13 @@ from bs4 import BeautifulSoup
 
 ## Write the Python code to do so here.
 
+import requests
+
+html_text = requests.get("http://www.nytimes.com").text 
+#print(html_text)
+fileref = open("nytimes_data.html","w")
+fileref.write(html_text)
+fileref.close()
 
 
 
