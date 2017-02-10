@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 ## COMMENT WITH:
 ## Name: Amelia Cacchione
 ## Your section day/time: Friday 1-2pm
-## Any names of people you worked with on this assignment:
+## Any names of people you worked with on this assignment: Sanika
 
 #####################
 
@@ -45,20 +45,20 @@ fileref.close()
 ## HINT: Remember that you'll need to open the file you created in Part 1, read the contets into one big string, and make a BeautifulSoup object out of that string!
 ## NOTE that the provided link does not include saving the online data in a file as part of the process. But it still provides very useful hints/tricks about how to look for and identify the headlines on the NY Times page.
 
-headlines = []
+nytimes_headlines = []
 
-base_url = 'http://www.nytimes.com'
-r = requests.get(base_url)
-soup = BeautifulSoup(r.text)
+fileref = open("nytimes_data.html","r")
+text_file = fileref.read()
+soup = BeautifulSoup(text_file, "html.parser")
  
 
 for story_heading in soup.find_all(class_="story-heading"): 
     if story_heading.a: 
-        headlines.append(story_heading.a.text.replace("\n", " ").strip())
+        nytimes_headlines.append(story_heading.a.text.replace("\n", " ").strip())
     else: 
         story_heading.contents[0].strip()
 
-print(headlines[:10])
+print(nytimes_headlines[:10])
 
 
 #####################
@@ -84,6 +84,11 @@ htmldoc = response.text
 soup = BeautifulSoup(htmldoc,"html.parser")
 people = soup.find_all("div",{"class":"views-row"})
 umsi_titles = {}
+
+for person in people:
+	name = person.find(property="dc:title").text
+	description = person.find(class_="field field-name-field-person-titles field-type-text field-label-hidden").text
+	umsi_titles.update({name:description})
 
 ## It may be helpful to translate the following from English to code:
 
